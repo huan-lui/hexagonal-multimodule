@@ -178,4 +178,17 @@ So summarise, this is our application architecture:
 ![img.png](doc/img/potato-is-an-hexagon.png)
 
 
+**With hexagonal**
+
+![img.png](doc/img/potatos-party.png)
+
+**Without it**
+
+![img.png](doc/img/tortita.png)
+
+## References
+
+- [Gradle multimodule](https://medium.com/@pkumarsaha71/how-to-create-a-multimodule-java-project-using-gradle-2689833712c7)
+
+
 
