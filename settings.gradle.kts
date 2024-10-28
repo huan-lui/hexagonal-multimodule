@@ -1,6 +1,6 @@
 rootProject.name = "my-bank"
-include("domain")
-include("application")
-include("infrastructure")
-include("main")
+include("modules:domain")
+include("modules:application")
+include("modules:infrastructure")
+include("modules:main")
 

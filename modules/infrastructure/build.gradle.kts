@@ -10,9 +10,8 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":domain"))
-    implementation(project(":application"))
-    implementation(project(":infrastructure"))
+    implementation(project(":modules:domain"))
+    implementation(project(":modules:application"))
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
