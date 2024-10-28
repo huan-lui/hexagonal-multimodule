@@ -33,8 +33,8 @@ Let's put an example of a company that has just hired its first developer, who i
 
 Examples:
 
-- In my company, we have users. They have an age, a name, and an email.
-- Users can have accounts, where they manage their money. 
+- In my company, we have customers. They have an age, a name, and an email.
+- Customers can have accounts, where they manage their money. 
 
 You model it using **pure Java classes**. (We might use annotations for validation, for example, to avoid explicitly writing validation code, but never associated to infrastructure). 
 
@@ -44,8 +44,8 @@ In the second week, your PM explains what you need to develop. She has ambitious
 
 They explain to you that the functionalities (aka use cases) of your application are:
 
-- Create a user
-- Create an account associated to a user.
+- Create a customer
+- Create a bank account associated to a customer.
 - Query current balance of an account.
 - Add money to an account.
 - 
@@ -66,18 +66,18 @@ Unfortunately, in the software world there are many ways to call these classes. 
 
 #### Outbound/driven/secondary ports. 
 
-Once they explain that to you, you notice that you app will have **dependencies**, for example, on something _to store your users._ 
+Once they explain that to you, you notice that you app will have **dependencies**, for example, on something _to store your customers._ 
 
 You ask your architect and he says that there are lots of discussions about using relational or non-relational databases, but that you should not worry about that.
 
 But your PM wants a review of the code in 2 weeks and says that the application will have more logic to develop in the future, so the sooner you have something, the better. 
 
-Ok, so you decide to work on your code and abstract the database. You create an interface called `UserRepository`, not depending on the technology
+Ok, so you decide to work on your code and abstract the database. You create an interface called `CustomerRepository`, not depending on the technology
 
     ```java
-    public interface UserRepository {
-        void save(User user);
-        User findById(String id);
+    public interface CustomerRepository {
+        void save(Customer customer);
+        Customer findById(String id);
     }
     ```
 
@@ -114,9 +114,9 @@ In this case, we have:
 
 ```java
 public class Application {
-    private CreateUserUseCase useCase;
+    private CreateCustomerUseCase useCase;
     public static void main(String[] args) {
-        useCase.execute(new CreateUserRequest(args[0], args[1],...));
+        useCase.execute(new CreateCustomerRequest(args[0], args[1],...));
     }
 }
 ```
@@ -124,13 +124,13 @@ public class Application {
 - The outbound/driven/secondary/dependency adapter, which **implements** the outbound/driven/secondary/dependency port.
 
     ```java
-  public class InMemoryUserRepository implements UserRepository {
-      private Map<String, User> users = new HashMap<>();
-      public void save(User user) {
-          users.put(user.getId(), user);
+  public class InMemoryCustomerRepository implements CustomerRepository {
+      private Map<String, Customer> customer = new HashMap<>();
+      public void save(Customer customer) {
+          customers.put(customer.getId(), customer);
       }
-      public User findById(String id) {
-          return users.get(id);
+      public Customer findById(String id) {
+          return customers.get(id);
       }
   }
     ```
@@ -141,19 +141,19 @@ The architects agreed on a solution. They want to use PacoDB, a new trendy techn
 
 Fortunately:
 - The architect is willing to develop it. 
-- You have already implemented the `UserRepository` interface.
+- You have already implemented the `CustomerRepository` interface.
 
-So he only needs to implement the `UserRepository` interface, without changing any other case in your app.
+So he only needs to implement the `CustomerRepository` interface, without changing any other case in your app.
 
 ```java
-public class PacoDBUserRepository implements UserRepository {
+public class PacoDBCustomerRepository implements CustomerRepository {
     private PacoDBClient client;
-    public void save(User user) {
+    public void save(Customer customer) {
         //132456 lines of code to use that new technology. You don't have to worry about it. 
     }
-    public User findById(String id) {
+    public Customer findById(String id) {
         //132456 lines of code to use that new technology
-        return new User("Is is a normal user, but retrieved using PacoDB");
+        return new Customer("Is is a normal customer, but retrieved using PacoDB");
     }
 }
 ```
@@ -161,12 +161,12 @@ public class PacoDBUserRepository implements UserRepository {
 Additionally, they decide to use a REST API to call the app, and this is only you already learned in your 3 week HTTP course. So you can implement it. 
 
 ```java
-public class RestUserController {
-    private CreateUserUseCase useCase;
+public class RestCustomerController {
+    private CreateCustomerUseCase useCase;
     
-    @PostMapping("/users")
-    public void createUser(String name, String email) {
-        useCase.execute(new CreateUserRequest(name, email));
+    @PostMapping("/customers")
+    public void createCustomer(String name, int age, String email) {
+        useCase.execute(new CreateCustomerRequest(name, age, email));
     }
 }
 ```

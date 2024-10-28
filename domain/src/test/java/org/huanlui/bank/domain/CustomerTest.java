@@ -1,5 +1,5 @@
 package org.huanlui.bank.domain;
 
-public class User {
+class CustomerTest {
 
 }
