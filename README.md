@@ -33,7 +33,7 @@ Let's put an example of a company that has just hired its first developer, who i
 
 Examples:
 
-- In my company, we have customers. They have an age, a name, and an email.
+- In my company, we have customers. They have a name and an age.
 - Customers can have accounts, where they manage their money. 
 
 You model it using **pure Java classes**. (We might use annotations for validation, for example, to avoid explicitly writing validation code, but never associated to infrastructure). 
@@ -44,7 +44,7 @@ In the second week, your PM explains what you need to develop. She has ambitious
 
 They explain to you that the functionalities (aka use cases) of your application are:
 
-- Create a customer
+- Create a customer/Get customers list
 - Create a bank account associated to a customer.
 - Query current balance of an account.
 - Add money to an account.
@@ -165,8 +165,8 @@ public class RestCustomerController {
     private CreateCustomerUseCase useCase;
     
     @PostMapping("/customers")
-    public void createCustomer(String name, int age, String email) {
-        useCase.execute(new CreateCustomerRequest(name, age, email));
+    public void createCustomer(String name, int age) {
+        useCase.execute(new CreateCustomerRequest(name, age));
     }
 }
 ```
