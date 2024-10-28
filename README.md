@@ -175,7 +175,7 @@ public class RestUserController {
 
 So summarise, this is our application architecture: 
 
-![hex-and-domain.png](doc/img/hexagonal-with-domain.png)
+![img.png](doc/img/potato-is-an-hexagon.png)
 
 
 
