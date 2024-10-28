@@ -97,7 +97,7 @@ The demo is tomorrow: you have implemented all the logic in the use cases, so yo
 Ok, you only need to:
 
 - Decide how to call you app, how to _drive_ it: let's use the simpler: from console. 
-- Decide how to store the users: let's use a fake repository, where we store the users in memory.
+- Decide how to store customers: let's use a fake repository, where we store the users in memory.
 
 #### Adapters. Your Mr Potato's pieces
 
