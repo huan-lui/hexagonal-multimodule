@@ -171,6 +171,21 @@ public class RestCustomerController {
 }
 ```
 
+## Pros
+
+- It is modular, you can easily plug and play different functionalities.
+- It is easier for pairing and split. Eg. we develop the core together and then we split to implement the adapters.
+- It satisfies SOLID.
+- If our services becomes too big, it is easier to split.
+- Each module has its dependencies.
+- The better we express the domain, the easier will be for ChatGPT to understand it and help us. Eg. If you create a
+  class with a single responsibility, maybe its name will be enough for ChatGPT to automatically create it.
+
+## Cons
+
+- Conversions
+- You don't have to use hexagonal for everything. The architecture is a tool, not a goal.
+
 ## Summary
 
 So summarise, this is our application architecture: 
