@@ -38,6 +38,9 @@ Examples:
 
 You model it using **pure Java classes**. (We might use annotations for validation, for example, to avoid explicitly writing validation code, but never associated to infrastructure). 
 
+🫵🏻: Let's develop the Home application, that allows you to see the temperature, humidity, etc. of your house and control
+you devices, air conditioning, etc. `HomeStatus` class.
+
 ### Second week: knowing that company needs from you: Application
 
 In the second week, your PM explains what you need to develop. She has ambitious plans about the application, but she wants to start with something simple.
@@ -48,21 +51,32 @@ They explain to you that the functionalities (aka use cases) of your application
 - Create a bank account associated to a customer.
 - Query current balance of an account.
 - Add money to an account.
-- 
+
+But the application needs to communicate with the outer world:
+
+- To receive commands/events from other systems.
+- To send commands/events to other systems.
+
+To communicate with outer world, we have ports. ⛴️
+
 #### Inbound/driving/primary ports, aka use cases. You Mr Potato's holes. 
 
-Ports = entry or output points to the application. The are general-purpose (not specifically linked to a given infrastructure). Such as an USB-C port, that can be connected to an HP printer, an Bother printer, to a mouse, a keyboard or even a fan.
+Ports = entry or output points to the application. They are general-purpose (not specifically linked to a given
+infrastructure). Such as a USB-C port, that can be connected to an HP printer, an Bother printer, to a mouse, a keyboard
+or even a fan.
 
 ![img.png](doc/img/port-hole.png)
 
-Each one of these functionalities can be developed using a different **vanilla-Java class**, this is why we call them **use cases**. These classes allow us to **drive** the application. 
+Each one of these **functionalities** (**use cases**)  can be developed using a **vanilla-Java class** . These classes
+allow us to **drive** the application.
 Unfortunately, in the software world there are many ways to call these classes. The following are some of the names I have seen:
 
 - **Use case**. 
 - **Driving** port. Driving, because they drive the application. 
 - **Inbound** port. Input, because they allow the application to **receive** (input) commands from the outer world. 
-- **Primary** port. Primary, because they receive the first command from the outer world. Why them, the logic starts running. 
-- **API** port, because an API allows to _drive_ an application. 
+- **Primary** port. Primary, because they receive the first command from the outer world. They trigger the logic
+  execution.
+- **API** port, because an API allows to _drive_ an application.
 
 #### Outbound/driven/secondary ports. 
 
@@ -70,7 +84,8 @@ Once they explain that to you, you notice that you app will have **dependencies*
 
 You ask your architect and he says that there are lots of discussions about using relational or non-relational databases, but that you should not worry about that.
 
-But your PM wants a review of the code in 2 weeks and says that the application will have more logic to develop in the future, so the sooner you have something, the better. 
+But your PM wants a review of the code in 2 weeks and says that the application will have more logic to develop in the
+future, so the sooner you have something, the better. Concept: early feedback.
 
 Ok, so you decide to work on your code and abstract the database. You create an interface called `CustomerRepository`, not depending on the technology
 
@@ -89,6 +104,11 @@ And again, people use different names:
 - **Outbound** port. Input, because they allow the app to **send** (output) commands to the outer world.
 - **Secondary** port. Secondary, because they are called and the end of the logic execution, as a side effect of the logic. 
 - **Dependency** port, because represent the dependencies of the application.
+
+🫵🏻: Let's develop the use cases RegisterTemperature and GetHomeStatus.
+🫵🏻: Now, we want to turn on the air conditioning when the temperature is above 25ºC and turn it off when the temperature
+is below 20ºC.
+- Mocks vs fakes.
 
 ### 4th week: Infrastructure
 
